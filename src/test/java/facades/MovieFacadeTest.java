@@ -80,7 +80,7 @@ public class MovieFacadeTest {
 
     @Test
     public void testGetMovieById(){
-        MovieDTO dE =facade.getMovieById(1);
+        MovieDTO dE =facade.getMovieById(m3.getId());
         MovieDTO dA = new MovieDTO(m3);
         System.out.println(m3.getYear());
         assertEquals(dA.getTitle(),dE.getTitle());
