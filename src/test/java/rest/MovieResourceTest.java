@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
@@ -124,24 +125,42 @@ public class MovieResourceTest {
 
     @Test
     public void testGetAll() {
-        //TODO
+        given().
+                get("/movie/all")
+                .then()
+                .assertThat()
+                .body("title", hasItems("Harry Potter and the Philosopher's Stone",
+                        "Harry Potter and the Chamber of Secrets",
+                        "Once Upon a Time... in Hollywood"))
+                .assertThat()
+                .body("title", hasSize(3));
     }
 
     
     @Test
     public void testFindByTitle() {
-        //TODO
+        given()
+                .pathParam("title", "harry potter")
+                .get("/movie/title/{title}")
+                .then()
+                .assertThat()
+                .body("title", hasItems("Harry Potter and the Philosopher's Stone","Harry Potter and the Chamber of Secrets"));
+
     }
     
     @Test
     public void testFindByTitleNotFound() {
-       //TODO, if you have time
+        
     }
     
      @Test
     public void testFindById() {
-        //given().get("/movie/{id}", m2.getId())
-        //TODO
+        given()
+                .get("/movie/{id}", m2.getId())
+                .then().assertThat().statusCode(HttpStatus.OK_200.getStatusCode())
+                .body("title", equalTo("Harry Potter and the Chamber of Secrets"));
+                
+        
           
     }
 }

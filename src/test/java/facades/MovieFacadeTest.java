@@ -3,6 +3,7 @@ package facades;
 import dtos.MovieDTO;
 import utils.EMF_Creator;
 import entities.Movie;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -72,7 +73,6 @@ public class MovieFacadeTest {
     
     @Test
     public void testGetAllMovies(){
-        MovieDTO d = new MovieDTO();
         int a=facade.getAllMovies().size();
         int exp=3;
         assertEquals(exp,a);
@@ -87,14 +87,17 @@ public class MovieFacadeTest {
     }
     
     @Test
-    public void testMovieHasActors(){
-        
-    }
-    
-    @Test
     public void getMoviesByTitle(){
-        //Todo
-    }
+
+        List<MovieDTO> list = facade.getMoviesByTitle("Harry Potter");
+        MovieDTO movie = null;
+        for (MovieDTO movieDTO : list) {
+            if (movieDTO.getTitle().equals("Harry Potter and the Philosopher's Stone")) {
+                movie = movieDTO;
+            }
+        }
+        assertEquals(movie.getTitle(), "Harry Potter and the Philosopher's Stone");
+    }    
 
 
 

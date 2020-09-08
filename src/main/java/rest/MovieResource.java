@@ -50,34 +50,27 @@ public class MovieResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAll() {
-        throw new UnsupportedOperationException();
+        List<MovieDTO> a=FACADE.getAllMovies();
+        return GSON.toJson(a);
+
     }
 
     @Path("/{id}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getById(@PathParam("id") int id) {
-        throw new UnsupportedOperationException();
+        MovieDTO dto = FACADE.getMovieById(id);
+        return GSON.toJson(dto);
     }
 
     @Path("title/{title}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getByTitle(@PathParam("title") String title) {
-        throw new UnsupportedOperationException();
+    public String getByTitle(@PathParam("title") String title) {
+        List<MovieDTO> e=FACADE.getMoviesByTitle(title);
+        return GSON.toJson(e);
     }
     
 
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    public String create(MovieDTO movie) {
-      throw new UnsupportedOperationException();
-    }
     
-    @PUT
-    @Path("/{id}")
-    @Consumes({MediaType.APPLICATION_JSON})
-    public void update(MovieDTO entity, @PathParam("id") int id) {
-        throw new UnsupportedOperationException();
-    }
 }
