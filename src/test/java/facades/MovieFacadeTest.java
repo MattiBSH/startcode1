@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.MovieDTO;
 import utils.EMF_Creator;
 import entities.Movie;
 import javax.persistence.EntityManager;
@@ -43,7 +44,7 @@ public class MovieFacadeTest {
     // Setup the DataBase in a known state BEFORE EACH TEST
     //TODO -- Make sure to change the script below to use YOUR OWN entity class
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws InterruptedException {
         EntityManager em = emf.createEntityManager();
         m1 = new Movie(2001, "Harry Potter and the Philosopher's Stone", new String[]{"Daniel Radcliffe", "Emma Watson", "Alan Rickman", "Rupert Grint"});
         m2 = new Movie(2002, "Harry Potter and the Chamber of Secrets", new String[]{"Daniel Radcliffe", "Emma Watson", "Alan Rickman", "Rupert Grint"});
@@ -52,7 +53,10 @@ public class MovieFacadeTest {
             em.getTransaction().begin();
             em.createQuery("DELETE from Movie").executeUpdate();
             em.persist(m1);
+            Thread.sleep(1000);
             em.persist(m2);
+            Thread.sleep(1000);
+
             em.persist(m3);
             em.getTransaction().commit();
         } finally {
@@ -71,17 +75,22 @@ public class MovieFacadeTest {
     
     @Test
     public void testGetAllMovies(){
-        //Tode
+        MovieDTO d = new MovieDTO();
+        int a=facade.getAllMovies().size();
+        int exp=3;
+        assertEquals(exp,a);
     }
 
     @Test
     public void testGetMovieById(){
-        //Todo
+        MovieDTO dE =facade.getMovieById(1);
+        MovieDTO dA = new MovieDTO(m3);
+        assertEquals(dA.getTitle(),dE.getTitle());
     }
     
     @Test
     public void testMovieHasActors(){
-        //You could use the method: arrayContaining(....
+        
     }
     
     @Test
