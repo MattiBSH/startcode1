@@ -53,10 +53,7 @@ public class MovieFacadeTest {
             em.getTransaction().begin();
             em.createQuery("DELETE from Movie").executeUpdate();
             em.persist(m1);
-            Thread.sleep(1000);
             em.persist(m2);
-            Thread.sleep(1000);
-
             em.persist(m3);
             em.getTransaction().commit();
         } finally {
@@ -85,6 +82,7 @@ public class MovieFacadeTest {
     public void testGetMovieById(){
         MovieDTO dE =facade.getMovieById(1);
         MovieDTO dA = new MovieDTO(m3);
+        System.out.println(m3.getYear());
         assertEquals(dA.getTitle(),dE.getTitle());
     }
     
