@@ -22,6 +22,7 @@
     </table>
     <script>
 
+      
         var url = "https://jsonplaceholder.typicode.com/users"
         var table1 = document.getElementById("table1");
 
@@ -43,12 +44,13 @@
         }
 
         function getByID() {
-            fetch(url)
+            var nr=document.getElementById("text1").value;
+
+            fetch(url+"/"+nr)
                 .then(res => res.json()) //in flow1, just do it
                 .then(data => {
-                    var nr=document.getElementById("text1").value;
-                    document.getElementById("table2").innerText=("data", data[nr].name+" nr: "+data[nr].phone);
-                console.log(data[nr].phone);
+                    document.getElementById("table2").innerText=("data", data.name +" nr: "+data.phone);
+                console.log(data.phone);
             });
                 
                 
