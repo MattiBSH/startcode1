@@ -43,14 +43,12 @@
         }
 
         function getByID() {
-            var nr=document.getElementById("text1").value;
-            var url2=url+nr;
-            fetch(url2)
+            fetch(url)
                 .then(res => res.json()) //in flow1, just do it
                 .then(data => {
-                    
-                    document.getElementById("table2").innerText=("data", data.name+" nr: "+data.phone);
-                console.log(data.phone);
+                    var nr=document.getElementById("text1").value;
+                    document.getElementById("table2").innerText=("data", data[nr].name+" nr: "+data[nr].phone);
+                console.log(data[nr].phone);
             });
                 
                 
